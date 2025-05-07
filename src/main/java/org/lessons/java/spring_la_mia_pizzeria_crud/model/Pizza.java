@@ -70,4 +70,9 @@ public class Pizza {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s %s %s %.2f", this.name, this.urlPhoto, this.description, this.price);
+    }
+
 }

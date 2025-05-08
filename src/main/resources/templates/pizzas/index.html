@@ -10,7 +10,14 @@
     <nav th:replace="~{fragments/navbar :: navbar(current='pizzas')}"></nav>
     <div class="container">
         <h1>Pizzas</h1>
-        <table class="table table-striped table-bordered table-hover" th:if="${pizzas != null}">
+        <div class="container my-4">
+            <form method="get" th:action="@{/pizzas/searchByName}">
+                <input type="text" id="search" name="name" placeholder="Search for pizzas..." class="form-control mb-3">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <table class="table table-striped table-bordered table-hover" th:if="${pizzas.size() > 0}">
             <tr>
                 <th>Image</th>
                 <th>Name</th>
@@ -30,7 +37,7 @@
                 </td>
             </tr>
         </table>
-        <div th:if="${pizzas == null}">
+        <div th:unless="${pizzas.size() > 0}">
             <p>No pizzas available.</p>
         </div>
         <hr />

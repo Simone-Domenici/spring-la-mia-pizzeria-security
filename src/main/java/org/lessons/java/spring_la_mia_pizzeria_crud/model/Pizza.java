@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,16 +20,17 @@ public class Pizza {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
+    @NotBlank(message = "The name must not be null, nor empty or blank")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "The description must not be null, nor empty or blank")
     private String description;
 
-    @NotBlank
+    @NotBlank(message = "The URL must not be null, nor empty or blank")
     private String urlPhoto;
 
-    @NotNull
+    @NotNull(message = "The price cannot be null")
+    @DecimalMin(value = "0.10", message = "The price cannot be negative")
     private BigDecimal price;
 
     public Integer getId() {

@@ -16,12 +16,42 @@
             <p><strong>Description:</strong> <span th:text="*{description}"></span></p>
             <p><strong>Price:</strong> <span th:text="|$*{price}|"></span></p>
         </div>
-        <div>
-            <a class="btn btn-primary" th:href="@{/pizzas}">Back to Pizzas</a>
-        </div>
         <hr />
     </div>
-
+    
+    <div class="container mt-4">
+        <h2 class="fw-bold">Offers</h2>
+        <div th:if="${pizza.offers.size() == 0}">
+            <p class="alert alert-warning">No offers available for this pizza.</p>
+        </div>
+        <div th:if="${pizza.offers.size() > 0}">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Offer Start</th>
+                        <th>Offer End</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="offer : ${pizza.offers}">
+                        <td th:text="${offer.title}"></td>
+                        <td th:text="${offer.offerStart}"></td>
+                        <td th:text="${offer.offerEnd}"></td>
+                        <td>
+                            <a th:href="@{/offers/edit/{id}(id=${offer.id})}" class="btn btn-warning">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <div class="mb-3">
+            <a class="btn btn-primary" th:href="@{/pizzas}">Back to Pizzas</a>
+        </div>
+        
     <div th:replace="~{fragments/fragments :: scripts}"></div>
 </body>
 

@@ -2,6 +2,7 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.controller;
 
 import java.util.List;
 
+import org.lessons.java.spring_la_mia_pizzeria_crud.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -92,6 +92,15 @@ public class PizzaController {
         repository.deleteById(id);
         
         return "redirect:/pizzas";
+    }
+    
+    @GetMapping("/{id}/offer")
+    public String offer(@PathVariable Integer id, Model model) {
+        Offer offer = new Offer();
+        offer.setPizza(repository.findById(id).get());
+
+        model.addAttribute("offer", offer);
+        return "offers/create-or-edit";
     }
     
     

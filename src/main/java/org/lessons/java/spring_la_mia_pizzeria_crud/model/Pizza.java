@@ -3,6 +3,7 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +35,7 @@ public class Pizza {
     @DecimalMin(value = "0.10", message = "The price cannot be negative")
     private BigDecimal price;
     
-    @OneToMany( mappedBy = "pizza")
+    @OneToMany( mappedBy = "pizza", cascade = {CascadeType.REMOVE})
     private List<Offer> offers;
 
     public List<Offer> getOffers() {

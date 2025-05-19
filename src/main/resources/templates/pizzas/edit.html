@@ -57,6 +57,12 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <div class="form-check" th:each="ingredient : ${ingredients}">
+                            <input type="checkbox" class="form-check-input" th:id="${ingredient.id}" th:field="${pizza.ingredients}" th:value="${ingredient.id}" />
+                            <label class="form-check-label" th:for="${ingredient.id}" th:text="${ingredient.name}"></label>
+                        </div>
+                    </div>
                     <div class="mb-3 d-flex justify-content-between">
                         <button type="submit" class="btn btn-primary">Update Pizza</button>
                         <button type="reset" class="btn btn-warning">Reset Fields</button>

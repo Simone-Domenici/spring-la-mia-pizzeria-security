@@ -16,6 +16,11 @@
             <h1>[[*{name}]]</h1>
             <img class="col-4" th:src="@{*{urlPhoto}}" alt="Pizza Image" width="300" height="300" />
             <p><strong>Description:</strong> <span th:text="*{description}"></span></p>
+            <p><strong>Ingredients:</strong>
+                <ul>
+                    <li th:each="ingredient : ${pizza.ingredients}" th:text="${ingredient.name}"></li>
+                </ul>
+            </p>
             <p><strong>Price:</strong> <span th:text="|$*{price}|"></span></p>
         </div>
         <hr />

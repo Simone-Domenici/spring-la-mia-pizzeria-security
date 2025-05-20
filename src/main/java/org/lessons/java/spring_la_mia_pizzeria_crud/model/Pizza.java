@@ -3,6 +3,10 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +23,10 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pizzas")
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "id"
+)
 public class Pizza {
     
     @Id
@@ -39,6 +47,7 @@ public class Pizza {
     private BigDecimal price;
     
     @OneToMany( mappedBy = "pizza", cascade = {CascadeType.REMOVE})
+    @JsonManagedReference
     private List<Offer> offers;
 
     @ManyToMany

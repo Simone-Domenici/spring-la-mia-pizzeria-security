@@ -5,6 +5,7 @@ import java.util.List;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Ingredient;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.IngredientRepository;
+import org.lessons.java.spring_la_mia_pizzeria_crud.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +25,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class IngredientController {
     
     @Autowired
-    private IngredientRepository ingredientRepository;
+    private IngredientService ingredientService;
 
     @GetMapping
     public String index(Model model) {
-        List<Ingredient> ingredients = ingredientRepository.findAll();
+        List<Ingredient> ingredients = ingredientService.findAll();
         model.addAttribute("ingredients", ingredients);
         return "ingredients/index";
     }
@@ -45,14 +46,14 @@ public class IngredientController {
             return "ingredients/create-or-edit";
         }
 
-        ingredientRepository.save(formIngredient);
+        ingredientService.save(formIngredient);
 
         return "redirect:/ingredients";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model ) {
-        model.addAttribute("ingredient", ingredientRepository.findById(id).get());
+        model.addAttribute("ingredient", ingredientService.findById(id));
         model.addAttribute("edit",true);
         
         return "ingredients/create-or-edit";
@@ -64,21 +65,15 @@ public class IngredientController {
             return "ingredients/create-or-edit";
         }
 
-        ingredientRepository.save(formIngredient);
+        ingredientService.save(formIngredient);
         return "redirect:/ingredients";
     }
 
     
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-
-        Ingredient ingredientToDelete = ingredientRepository.findById(id).get();
-
-        for (Pizza linkedPizza : ingredientToDelete.getPizzas()) {
-            linkedPizza.getIngredients().remove(ingredientToDelete);
-        }
-        
-        ingredientRepository.delete(ingredientToDelete);
+    
+        ingredientService.deleteById(id);
      
         return "redirect:/ingredients";
     }

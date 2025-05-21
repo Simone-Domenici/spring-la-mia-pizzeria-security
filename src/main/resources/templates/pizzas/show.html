@@ -30,7 +30,7 @@
         <div class="mb-3 d-flex justify-content-between">
             <h2 class="fw-bold">Offers</h2>
             <div class="mb-3">
-                <a th:href="@{/pizzas/{id}/offer(id=${pizza.id})}" class="btn btn-primary">Add New Offer</a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/pizzas/{id}/offer(id=${pizza.id})}" class="btn btn-primary">Add New Offer</a>
             </div>
         </div>
         <div th:if="${pizza.offers.size() == 0}">
@@ -43,8 +43,8 @@
                         <th>Title</th>
                         <th>Offer Start</th>
                         <th>Offer End</th>
-                        <th></th>
-                        <th></th>
+                        <th sec:authorize="hasAuthority('ADMIN')"></th>
+                        <th sec:authorize="hasAuthority('ADMIN')"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,10 +52,10 @@
                         <td th:text="${offer.title}"></td>
                         <td th:text="${offer.offerStart}"></td>
                         <td th:text="${offer.offerEnd}"></td>
-                        <td>
+                        <td sec:authorize="hasAuthority('ADMIN')">
                             <a th:href="@{/offers/edit/{id}(id=${offer.id})}" class="btn btn-warning">Edit</a>
                         </td>
-                        <td>
+                        <td sec:authorize="hasAuthority('ADMIN')">
                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                 th:data-bs-target="|#delete-modal-${offer.id}|">
                                 Delete

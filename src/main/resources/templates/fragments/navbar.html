@@ -15,7 +15,15 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/pizzas}">Pizzas</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/ingredients}">Ingredients</a>
+                </li>
             </ul>
+        </div>
+        <div class="user-info">
+            Logged in as: <span sec:authentication="name" class="fw-bold me-2"></span>
+            Role: <span sec:authentication="principal.authorities" class="fw-bold"></span>
+            <a class="btn btn-outline-danger btn-sm" th:href="@{/logout}">Logout</a>
         </div>
     </nav>
 </body>
